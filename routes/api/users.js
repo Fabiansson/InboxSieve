@@ -1,5 +1,6 @@
 const express = require('express');
 const router = express.Router();
+const { admin, checkIfAuthenticated } = require('../../service/firebase');
 
 // MailRoute Model
 const User = require('../../models/User');
@@ -23,13 +24,25 @@ router.post('/',(req, res) => {
         isMail: req.body.isMail
     });
 
-    newUser.save().then(user => res.json(user));
+    admin.auth().createUser({
+        email: newUser.email,
+        password: newUser.password,
+        displayName: newUser.isMail
+    })
+    .then(function(userRecord) {
+        // See the UserRecord reference doc for the contents of userRecord.
+        newUser.save().then(user => res.json(user));
+        console.log('Successfully created new user:', userRecord.uid);
+      })
+      .catch(function(error) {
+        console.log('Error creating new user:', error);
+      });
 });
 
 // @route   DELETE api/users/:id
 // @desc    Deleta A User
-// @access  public
-router.delete('/:id',(req, res) => {
+// @access  private
+router.delete('/:id', checkIfAuthenticated, (req, res) => {
     User.findById(req.params.id)
         .then(user => user.remove().then(() => res.json({success: true})))
         .catch(err => res.status(404).json({success: false}));
