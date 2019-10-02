@@ -3,23 +3,17 @@ const Schema = mongoose.Schema;
 
 // Create Schema
 const UserSchema = new Schema({
+    _id: {
+        type: String
+    },
     email: {
         type: String,
-        required: true,
-        unique: true
-    },
-    password: {
-        type: String,
-        required: true
+        requied: true
     },
     isMail: {
         type: String,
         required: true,
         unique: true
-    },
-    regDate: {
-        type: Date,
-        default: Date.now
     }
 });
 

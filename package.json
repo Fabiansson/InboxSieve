@@ -18,7 +18,8 @@
     "express": "^4.17.1",
     "firebase-admin": "^8.6.0",
     "mailgun-js": "^0.22.0",
-    "mongoose": "^5.7.1"
+    "mongoose": "^5.7.1",
+    "recompose": "^0.30.0"
   },
   "devDependencies": {
     "nodemon": "^1.19.2"

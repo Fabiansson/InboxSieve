@@ -19,12 +19,12 @@ router.get('/',(req, res) => {
 // @access  public
 router.post('/',(req, res) => {
     const newUser = new User({
+        _id: req.body.firebaseID,
         email: req.body.email,
-        password: req.body.password,
         isMail: req.body.isMail
     });
 
-    admin.auth().createUser({
+   /* admin.auth().createUser({
         email: newUser.email,
         password: newUser.password,
         displayName: newUser.isMail
@@ -36,13 +36,15 @@ router.post('/',(req, res) => {
       })
       .catch(function(error) {
         console.log('Error creating new user:', error);
-      });
+      });*/
+      newUser.save().then(user => res.json(user));
 });
 
 // @route   DELETE api/users/:id
 // @desc    Deleta A User
 // @access  private
 router.delete('/:id', checkIfAuthenticated, (req, res) => {
+    console.log(req.params.id)
     User.findById(req.params.id)
         .then(user => user.remove().then(() => res.json({success: true})))
         .catch(err => res.status(404).json({success: false}));
