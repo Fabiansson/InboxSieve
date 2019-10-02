@@ -1,11 +1,7 @@
-const DOMAIN = require('../config/keys').DOMAIN;
-const HOST = require('../config/keys').HOST;
-const APIKEY = require('../config/keys').APIKey;
-
 var mailgun = require('mailgun-js')({
-    apiKey: APIKEY,
-    domain: DOMAIN,
-    host: HOST
+    apiKey: process.env.MAILGUN_API_KEY,
+    domain: process.env.MAILGUN_DOMAIN,
+    host: process.env.MAILGUN_HOST
 });
 
 function createRoute(filter, action, options, cb) {
