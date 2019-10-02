@@ -6,9 +6,9 @@ const MailRoute = require('../../models/MailRoute');
 
 //const mailgunservice = require('../../service/mailgun');
 var mailgun = require('mailgun-js')({
-    apiKey: require('../../config/keys').APIKey,
-    domain: require('../../config/keys').DOMAIN,
-    host: require('../../config/keys').HOST
+    apiKey: process.env.MAILGUN_API_KEY,
+    domain: process.env.MAILGUN_DOMAIN,
+    host: process.env.MAILGUN_HOST
 });
 
 // @route   PUT api/mailRoutes/:id
