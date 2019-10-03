@@ -25,15 +25,6 @@ router.post('/',(req, res) => {
         isMail: req.body.isMail
     });
 
-    const mgHome = {
-        filter: `match_recipient(${req.body.isMail})`,
-        actionPrivate: `forward("${req.body.email}")`,
-        actionWeb: 'forward("https://immense-wave-84291.herokuapp.com/api/inbox")',
-        actionStop: 'stop()',
-        priority: 10,
-        description: 'HomeRoute'
-    }
-
    /* admin.auth().createUser({
         email: newUser.email,
         password: newUser.password,
@@ -49,12 +40,14 @@ router.post('/',(req, res) => {
       });*/
       newUser.save().then(user => {
         mailgun.post('/routes', {
-            "priority": mgHome.priority,
-            "description": mgHome.description,
-            "expression": mgHome.filter,
-            "action": mgHome.actionPrivate,
-            "action": mgHome.actionWeb,
-            "action": mgHome.actionStop }, 
+            "priority": 10,
+            "description": 'HomeRoute',
+            "expression": `match_recipient("${req.body.isMail}")`,
+            "action": [
+                `forward("${req.body.email}")`,
+                'forward("https://immense-wave-84291.herokuapp.com/api/inbox")',
+                'stop()'
+            ]}, 
             function (error, body) {
                 if (error) console.log(error);
                 console.log(body);
