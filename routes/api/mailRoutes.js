@@ -4,12 +4,7 @@ const router = express.Router();
 // MailRoute Model
 const MailRoute = require('../../models/MailRoute');
 
-//const mailgunservice = require('../../service/mailgun');
-var mailgun = require('mailgun-js')({
-    apiKey: process.env.MAILGUN_API_KEY,
-    domain: process.env.MAILGUN_DOMAIN,
-    host: process.env.MAILGUN_HOST
-});
+const mailgun = require('../../service/mailgun').mailgun;
 
 // @route   PUT api/mailRoutes/:id
 // @desc    Update A MailRoute
@@ -41,15 +36,6 @@ router.delete('/:id',(req, res) => {
         res.json(body);
     });
 
-});
-
-// @route   GET api/mailRoutes/doTest
-// @desc    Do Test
-// @access  public
-router.get('/doTest',(req, res) => {
-    mailgunservice.createRoute(body => {
-        res.status(200).json(body);
-    })
 });
 
 module.exports = router;

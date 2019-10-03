@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const { admin, checkIfAuthenticated } = require('../../service/firebase');
+const mailgun = require('../../service/mailgun').mailgun;
 
 // MailRoute Model
 const User = require('../../models/User');
@@ -24,6 +25,15 @@ router.post('/',(req, res) => {
         isMail: req.body.isMail
     });
 
+    const mgHome = {
+        filter: `match_recipient(${req.body.isMail})`,
+        actionPrivate: `forward("${req.body.email}")`,
+        actionWeb: 'forward("https://immense-wave-84291.herokuapp.com/api/inbox")',
+        actionStop: 'stop()',
+        priority: 10,
+        description: 'HomeRoute'
+    }
+
    /* admin.auth().createUser({
         email: newUser.email,
         password: newUser.password,
@@ -37,7 +47,20 @@ router.post('/',(req, res) => {
       .catch(function(error) {
         console.log('Error creating new user:', error);
       });*/
-      newUser.save().then(user => res.json(user));
+      newUser.save().then(user => {
+        mailgun.post('/routes', {
+            "priority": mgHome.priority,
+            "description": mgHome.description,
+            "expression": mgHome.filter,
+            "action": mgHome.actionPrivate,
+            "action": mgHome.actionWeb,
+            "action": mgHome.actionStop }, 
+            function (error, body) {
+                if (error) console.log(error);
+                console.log(body);
+                res.json(user);
+            });
+      })
 });
 
 // @route   DELETE api/users/:id
