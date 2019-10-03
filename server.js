@@ -12,6 +12,7 @@ const app = express();
 
 // Bodyparser Middleware
 app.use(express.urlencoded());
+app.use(express.json());
 
 // Connect to Mongo
 mongoose.set('useNewUrlParser', true);
