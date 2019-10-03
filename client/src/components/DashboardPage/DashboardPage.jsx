@@ -32,7 +32,8 @@ class DashboardPage extends Component {
 
     axios.get('/api/mailRoutes/' + uid)
         .then(res => {
-          console.log(res);
+          this.setState({routes: res.data});
+          console.log(res.data);
         })
 
 
@@ -44,8 +45,12 @@ class DashboardPage extends Component {
   render() {
     
     return (
+      <div>
       <h1>DashboardPage</h1>
-
+      <ul>
+        {this.state.routes.map((item,i) => <li key={i}>{item.from} Active: {item.active.toString()}</li>)}
+        </ul>
+      </div>
     );
   }
 }
