@@ -5,8 +5,8 @@ const router = express.Router();
 // @desc    HTTP handler for messages from mailgun
 // @access  public
 router.post('/',(req, res) => {
-    console.log("REQ Sender: ");
-    console.log(req.get('sender'));
+    console.log("REQ PARAMS: ");
+    console.log(req.params);
     console.log("REQ BODY: ");
     console.log(req.body);
     console.log("REQ JSON: ");
