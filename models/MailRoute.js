@@ -3,6 +3,9 @@ const Schema = mongoose.Schema;
 
 // Create Schema
 const MailRouteSchema = new Schema({
+    _id: {
+        type: String
+    },
     owner: {
         type: String,
         required: true
