@@ -8,7 +8,7 @@ router.post('/',(req, res) => {
     console.log("REQ: ");
     console.log(req);
     console.log("REQ PARAMS: ");
-    console.log(req.params);
+    console.log(req.params.sender);
     console.log("REQ BODY: ");
     console.log(req.body);
     console.log("REQ JSON: ");

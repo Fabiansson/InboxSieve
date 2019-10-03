@@ -11,7 +11,7 @@ const path = require('path');
 const app = express();
 
 // Bodyparser Middleware
-app.use(bodyParser.json());
+app.use(express.urlencoded());
 
 // Connect to Mongo
 mongoose.set('useNewUrlParser', true);
