@@ -19,7 +19,7 @@ router.post('/', (req, res) => {
             mailgun.post('/routes', {
                 "priority": 1,
                 "description": 'CustomRoute',
-                "expression": `(match_header("from","${req.body.sender}") and match_header("to","${req.body.recipient}"))`,
+                "expression": `match_recipient("${recipient}") and match_header("from","(.*)${sender}(.*)")`,
                 "action": [
                     `forward("${user.email}")`,
                     'stop()'
