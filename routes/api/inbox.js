@@ -21,7 +21,7 @@ router.post('/', (req, res) => {
                 "description": 'CustomRoute',
                 "expression": `(match_header("from","${req.body.sender}") and match_header("to","${req.body.recipient}"))`,
                 "action": [
-                    `forward("${user.mail}")`,
+                    `forward("${user.email}")`,
                     'stop()'
                 ]}, 
                 function (error, body) {
