@@ -11,7 +11,7 @@ router.post('/',(req, res) => {
     console.log(sender);
     console.log(recipient);
 
-    res.status(200);
+    res.json({success: true});
 });
 
 
