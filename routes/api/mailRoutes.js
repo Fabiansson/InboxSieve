@@ -1,10 +1,22 @@
 const express = require('express');
 const router = express.Router();
+const { checkIfAuthenticated } = require('../../service/firebase');
 
 // MailRoute Model
 const MailRoute = require('../../models/MailRoute');
 
 const mailgun = require('../../service/mailgun').mailgun;
+
+// @route   GET api/mailRoutes
+// @desc    Get all MailRoutes from uid
+// @access  private
+router.get('/:uid', (req, res) => {
+    MailRoute.find({ owner: req.params.uid })
+    .then(result => {
+        console.log(result);
+        res.json(result);
+    })
+});
 
 // @route   PUT api/mailRoutes/:id
 // @desc    Update A MailRoute

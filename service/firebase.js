@@ -1,10 +1,10 @@
 var admin = require('firebase-admin');
 
 //var serviceAccount = require("../config/inboxsieve-firebase-adminsdk-vh5ch-0c286c6a94.json");
-var serviceAccoun = JSON.parse(process.env.GOOGLE_APPLICATION_CREDENTIALS);
+var serviceAccount = JSON.parse(process.env.GOOGLE_APPLICATION_CREDENTIALS);
 
 admin.initializeApp({
-  credential: admin.credential.cert(serviceAccoun),
+  credential: admin.credential.cert(serviceAccount),
   databaseURL: "https://inboxsieve.firebaseio.com"
 });
 

@@ -30,7 +30,8 @@ router.post('/', (req, res) => {
 
                     const newMailRoute = new MailRoute({
                         _id: body.route.id,
-                        owner: recipient,
+                        owner: user._id,
+                        to: recipient,
                         from: sender
                     });
 

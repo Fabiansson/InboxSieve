@@ -7,7 +7,6 @@ import { AuthUserContext, withAuthorization } from '../../services/Session';
 import { withFirebase } from '../../services/Firebase';
 
 const deletUser = async (authUser, firebase) => {
-
   const token = await firebase.doGetIdToken();
   console.log(token);
   axios.delete('/api/users/' + authUser.uid, {
