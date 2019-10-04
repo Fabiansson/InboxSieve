@@ -35,7 +35,7 @@ class SignUpFormBase extends Component {
         const user = {
           firebaseID: authUser.user.uid,
           email: authUser.user.email,
-          isMail: isMail + 'inboxsieve.com'
+          isMail: isMail + '@inboxsieve.com'
         }
         
         axios.post('/api/users', user)
