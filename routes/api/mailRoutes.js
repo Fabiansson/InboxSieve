@@ -21,16 +21,41 @@ router.get('/:uid', (req, res) => {
 // @route   PUT api/mailRoutes/:id
 // @desc    Update A MailRoute
 // @access  private
-router.put('/:id',(req, res) => {
+router.put('/:id', (req, res) => {
+    console.log(req.params.id);
     //TODO: Activate/Deactivate in DB
     /*MailRoute.findById(req.params.id)
         .then(user => user.remove().then(() => res.json({success: true})))
         .catch(err => res.status(404).json({success: false}));*/
     
     //Stop/Activate on Mailgun
-    mailgun.put('/routes/' + req.params.id, { "action": 'stop()' }, function (error, body) {
-        res.json(body);
-    });
+
+    if(req.body.activate){
+        MailRoute.findOne({ _id: req.params.id })
+            .then(route => {
+                User.findOne({ _id: route.owner })
+                    .then(user => {
+                        console.log('user email is: ' + user.email);
+                        mailgun.put('/routes/' + req.params.id, { "action": `forward('${user.email}')` }, function (error, body) {
+                            console.log(body);
+                            route.active = true;
+                            route.save()
+                                .then(route => {
+                                    res.json({msg: 'activated successfully'});
+                                })
+                        });
+                    })
+            })
+    } else {
+        mailgun.put('/routes/' + req.params.id, { "action": 'stop()' }, function (error, body) {
+            console.log(body);
+            MailRoute.findOneAndUpdate({ _id: req.params.id }, { active: false})
+                .then(route => {
+                    res.json(body);
+                })
+        });
+    }
+    
     //TODO: Activate on Mailgun
 });
 

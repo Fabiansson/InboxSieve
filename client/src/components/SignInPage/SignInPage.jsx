@@ -5,13 +5,22 @@ import { SignUpLink } from '../SignUpPage/SignUpPage';
 import { PasswordForgetLink } from '../PasswordForgetForm/PasswordForgetForm';
 import { withFirebase } from '../../services/Firebase';
 
+import Container from '@material-ui/core/Container';
+import CssBaseline from '@material-ui/core/CssBaseline';
+
 const SignInPage = () => (
+  <React.Fragment>
+    <CssBaseline />
+    <Container>
   <div>
     <h1>SignIn</h1>
     <SignInForm />
     <PasswordForgetLink />
     <SignUpLink />
   </div>
+  </Container>
+  </React.Fragment>
+
 );
 
 const INITIAL_STATE = {

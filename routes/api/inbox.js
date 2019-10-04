@@ -12,8 +12,6 @@ router.post('/', (req, res) => {
     const sender = req.body.sender;
     const recipient = req.body.recipient;
 
-    
-
     User.findOne({ 'isMail': recipient }).then(user => {
         if (user) {
             mailgun.post('/routes', {
