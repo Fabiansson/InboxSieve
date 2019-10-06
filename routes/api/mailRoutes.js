@@ -31,12 +31,13 @@ router.put('/:id', (req, res) => {
     //Stop/Activate on Mailgun
 
     if(req.body.activate){
+        console.log('activating route');
         MailRoute.findOne({ _id: req.params.id })
             .then(route => {
                 User.findOne({ _id: route.owner })
                     .then(user => {
                         console.log('user email is: ' + user.email);
-                        mailgun.put('/routes/' + req.params.id, { "action": `forward('${user.email}')` }, function (error, body) {
+                        mailgun.put('/routes/' + req.params.id, { "action": [`forward('${user.email}')`, 'stop()'] }, function (error, body) {
                             console.log(body);
                             route.active = true;
                             route.save()
@@ -47,6 +48,7 @@ router.put('/:id', (req, res) => {
                     })
             })
     } else {
+        console.log('deactivating route');
         mailgun.put('/routes/' + req.params.id, { "action": 'stop()' }, function (error, body) {
             console.log(body);
             MailRoute.findOneAndUpdate({ _id: req.params.id }, { active: false})

@@ -6,6 +6,10 @@ import { withAuthorization, AuthUserContext } from '../../services/Session';
 import axios from 'axios';
 import RouteList from '../RouteList/RouteList';
 
+import Container from '@material-ui/core/Container';
+import { CssBaseline } from '@material-ui/core';
+import Typography from '@material-ui/core/Typography';
+
 
 class DashboardPage extends Component {
   static contextType = AuthUserContext;
@@ -58,13 +62,15 @@ class DashboardPage extends Component {
   render() {
     
     return (
-      <div>
-      <h1>DashboardPage</h1>
+      <React.Fragment>
+        <CssBaseline />
+      <Container>
+      <Typography variant="h2" color="inherit" noWrap>
+    Dashboard
+  </Typography>
       <RouteList routes={this.state.routes} updateRoute={this.updateRoute}/>
-      <ul>
-        {this.state.routes.map((item,i) => <li key={i}>{item.from} Active: {item.active.toString()}</li>)}
-        </ul>
-      </div>
+      </Container>
+      </React.Fragment>
     );
   }
 }

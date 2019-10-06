@@ -1,5 +1,4 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
 import { AuthUserContext } from '../../services/Session';
 
 import AppBar from '@material-ui/core/AppBar';
@@ -26,7 +25,7 @@ const useStyles = makeStyles(theme => ({
     },
   },
   appBar: {
-    borderBottom: `1px solid ${theme.palette.divider}`,
+    borderBottom: `1px solid ${theme.palette.divider}`
   },
   toolbar: {
     flexWrap: 'wrap',
@@ -71,22 +70,35 @@ const Navigation = () => (
   </div>
 );
 
-const NavigationAuth = () => (
-  <ul>
-    <li>
-      <Link to={'/'}>Landing</Link>
-    </li>
-    <li>
-      <Link to={'/dashboard'}>Dashboard</Link>
-    </li>
-    <li>
-      <Link to={'/account'}>Account</Link>
-    </li>
-    <li>
-      <SignOutButton />
-    </li>
-  </ul>
-);
+const NavigationAuth = function(){
+  const classes = useStyles();
+
+  return(
+  <React.Fragment>
+  <CssBaseline />
+<AppBar position="static" color="primary" elevation={0} className={classes.appBar}>
+<Toolbar className={classes.toolbar}>
+  <Typography variant="h6" color="inherit" noWrap className={classes.toolbarTitle}>
+    InboxSieve
+  </Typography>
+  <nav>
+    <Linkk variant="button" color="textPrimary" href="/" className={classes.link}>
+      LandingPage
+    </Linkk>
+    <Linkk variant="button" color="textPrimary" href="/dashboard" className={classes.link}>
+      Dashboard
+    </Linkk>
+    <Linkk variant="button" color="textPrimary" href="/account" className={classes.link}>
+      Account
+    </Linkk>
+  </nav>
+  <SignOutButton />
+</Toolbar>
+</AppBar>
+</React.Fragment>
+)};
+
+
 const NavigationNonAuth = function(){
   const classes = useStyles();
   

@@ -12,20 +12,40 @@ import AccountPage from './components/AccountPage/AccountPage';
 import { withAuthentication } from './services/Session';
 
 import './App.css';
+import { CssBaseline } from '@material-ui/core';
+import { ThemeProvider } from '@material-ui/styles';
+import { createMuiTheme } from '@material-ui/core/styles';
+
+
+const theme = createMuiTheme({
+  palette: {
+    primary: {
+      main: '#f1ffe7'
+    },
+    secondary: {
+      main: '#BAFF29'
+    }
+  },
+});
 
 const App = () => (
-      <Router>
-        <div>
-          <Navigation />
-          <hr/>
-          <Route exact path={"/"} component={LandingPage} />
-          <Route path={"/signup"} component={SignUpPage} />
-          <Route path={"/signin"} component={SignInPage} />
-          <Route path={"/pwforget"} component={PasswordForgetForm} />
-          <Route path={"/dashboard"} component={DashboardPage} />
-          <Route path={"/account"} component={AccountPage} />
-        </div>
-      </Router>
-    );
+  <ThemeProvider theme={theme}>
+  <React.Fragment>
+    <CssBaseline />
+    <Router>
+      <div>
+        <Navigation />
+        <hr />
+        <Route exact path={"/"} component={LandingPage} />
+        <Route path={"/signup"} component={SignUpPage} />
+        <Route path={"/signin"} component={SignInPage} />
+        <Route path={"/pwforget"} component={PasswordForgetForm} />
+        <Route path={"/dashboard"} component={DashboardPage} />
+        <Route path={"/account"} component={AccountPage} />
+      </div>
+    </Router>
+  </React.Fragment>
+  </ThemeProvider>
+);
 
 export default withAuthentication(App);
