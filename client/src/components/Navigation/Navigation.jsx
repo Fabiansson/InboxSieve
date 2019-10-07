@@ -25,7 +25,9 @@ const useStyles = makeStyles(theme => ({
     },
   },
   appBar: {
-    borderBottom: `1px solid ${theme.palette.divider}`
+    //borderBottom: `1px solid ${theme.palette.divider}`,
+    background: 'transparent',
+    boxShadow: 'none'
   },
   toolbar: {
     flexWrap: 'wrap',
@@ -78,7 +80,7 @@ const NavigationAuth = function(){
   <CssBaseline />
 <AppBar position="static" color="primary" elevation={0} className={classes.appBar}>
 <Toolbar className={classes.toolbar}>
-  <Typography variant="h6" color="inherit" noWrap className={classes.toolbarTitle}>
+  <Typography variant="h6" color="primary" noWrap className={classes.toolbarTitle}>
     InboxSieve
   </Typography>
   <nav>

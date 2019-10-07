@@ -20,7 +20,8 @@ const useStyles = makeStyles(theme => ({
   boox: {
     backgroundColor: '#1a1b41',
     borderRadius: '10px',
-    padding: '3em'
+    padding: '1.5em',
+    margin: '2em'
   }
 }));
 
