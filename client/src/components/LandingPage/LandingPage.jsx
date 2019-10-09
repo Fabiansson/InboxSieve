@@ -13,9 +13,13 @@ import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Copyright from '../Copyright/Copyright';
 import PricingTable from '../PricingTable/PricingTable';
 
+import { withoutAuthorization, AuthUserContext } from '../../services/Session';
+
+
 import imgChooser from '../../assets/images/undraw_Choose_bwbs.png';
 import imgChoooser from '../../assets/images/undraw_inbox_cleanup_w2ur.png';
 import cleaning from '../../assets/images/inboxCleaning.svg';
+import IsMailField from '../IsMailField/IsMailField';
 
 
 
@@ -133,6 +137,7 @@ const LandingPage = function () {
               id="password"
               autoComplete="current-password"
             />
+            <IsMailField />
             <FormControlLabel
               control={<Checkbox value="remember" color="primary" />}
               label="Remember me"
@@ -253,4 +258,8 @@ const LandingPage = function () {
     </React.Fragment>
   )
 };
-export default LandingPage;
+
+const condition = authUser => !authUser;
+
+
+export default withoutAuthorization(condition)(LandingPage);
