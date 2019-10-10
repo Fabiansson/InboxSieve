@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
+import Link from '@material-ui/core/Link';
 import { withFirebase } from '../../services/Firebase';
 
 const PasswordForgetPage = () => (
@@ -59,9 +59,7 @@ class PasswordForgetFormBase extends Component {
 }
 
 const PasswordForgetLink = () => (
-  <p>
-    <Link to={'/pwforget'}>Forgot Password?</Link>
-  </p>
+  <Link href="/pwforget" variant="body2">Forgot password?</Link>
 );
 
 export default PasswordForgetPage;

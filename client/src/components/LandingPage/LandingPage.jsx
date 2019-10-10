@@ -1,19 +1,14 @@
 import React from 'react';
+import { withRouter } from 'react-router-dom';
 import { Container, Typography, Box } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
-import Button from '@material-ui/core/Button';
 import Grid from '@material-ui/core/Grid';
-import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
-import Link from '@material-ui/core/Link';
-import Checkbox from '@material-ui/core/Checkbox';
-import Avatar from '@material-ui/core/Avatar';
-import TextField from '@material-ui/core/TextField';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
+import Fab from '@material-ui/core/Fab';
 import Copyright from '../Copyright/Copyright';
 import PricingTable from '../PricingTable/PricingTable';
 
-import { withoutAuthorization, AuthUserContext } from '../../services/Session';
+import { withoutAuthorization } from '../../services/Session';
 
 
 import imgChooser from '../../assets/images/undraw_Choose_bwbs.png';
@@ -24,6 +19,7 @@ import IsMailField from '../IsMailField/IsMailField';
 
 
 const useStyles = makeStyles(theme => ({
+
   paper: {
     //width: '100%',
     //height: '30%',
@@ -72,7 +68,8 @@ const useStyles = makeStyles(theme => ({
     padding: theme.spacing(4)
   },
   formBox: {
-    margin: theme.spacing(4)
+    margin: theme.spacing(4),
+    //whiteSpace: 'nowrap'
   },
   /*footer: {
     padding: theme.spacing(2),
@@ -92,22 +89,31 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-const LandingPage = function () {
+const signUp = function (history, username) {
+  history.push('/signup', { username: username })
+}
+
+const LandingPage = function (props) {
   const classes = useStyles();
 
   return (
     <React.Fragment>
       <Container className={classes.container}>
         <Box boxShadow={3} className={classes.boox}>
-        <Grid container spacing={3}>
+          <Grid container spacing={3}>
+            <Grid item xs={6} elevation={6}>
+              <Typography component="h1" variant="h3" className={classes.margin}>
+                Free inbox organizer and privatizer.
+          </Typography>
+              <Typography component="h2" variant="h6" className={classes.margin}>
+                Sieves your spam away...
+          </Typography>
+              <IsMailField />
+              <Fab variant="extended" onClick={() => signUp(props.history, 'username')} color="primary" aria-label="add" className={classes.margin}>
+                Get Started
+              </Fab>
+              {/*<Box className={classes.formBox}>
           
-
-
-
-
-
-        <Grid item xs={6} elevation={6} square>
-          <Box className={classes.formBox}>
           <Avatar className={classes.avatar}>
             <LockOutlinedIcon />
           </Avatar>
@@ -164,32 +170,15 @@ const LandingPage = function () {
               </Grid>
             </Grid>
           </form>
-          </Box>
-      </Grid>
-
-      <Grid item xs={6}>
-            
-          {/*<Typography variant="h2" color="inherit">
-            InboxSieve
-      </Typography>
-          <Typography variant="h4" color="inherit">
-            Sieve your Spam away!
-  </Typography>
-          <Button variant="contained" size="large" color="primary" className={classes.margin}>
-            Get your InboxSieve
-  </Button>*/}
-        <Box className={classes.boxImage}></Box>
-        </Grid>
-
-
-
-
-
-
-
-
-        </Grid>
+  
+  </Box>*/}
+            </Grid>
+            <Grid item xs={6}>
+              <Box className={classes.boxImage}></Box>
+            </Grid>
+          </Grid>
         </Box>
+
         <Paper className={classes.paper}>
           <Grid container spacing={3}>
             <Grid item xs={4}>
@@ -197,35 +186,35 @@ const LandingPage = function () {
             </Grid>
             <Grid item xs={8}>
               <Box className={classes.infoText}>
-              <Typography variant="h4" component="h3">
-                What is InboxSieve?
+                <Typography variant="h4" component="h3">
+                  What is InboxSieve?
         </Typography>
-              <Typography component="p">
-                InboxSieve is a completely new way of organizing and privatizing your personal Email-Adress.
-                This service enables full control over your private inbox and gives you the option to hide your personal 
-                Email address behind your InboxSieve email address. You can controll and receive a unlimited amount of emails completely for free.
-                With InboxSieve Pro you even get your own InboxSieve Subdomain so you can create unlimited amounts of email addresses instantly!
-
+                <Typography component="p">
+                  InboxSieve is a completely new way of organizing and privatizing your personal Email-Adress.
+                  This service enables full control over your private inbox and gives you the option to hide your personal
+                  Email address behind your InboxSieve email address. You can controll and receive a unlimited amount of emails completely for free.
+                  With InboxSieve Pro you even get your own InboxSieve Subdomain so you can create unlimited amounts of email addresses instantly!
+  
         </Typography>
               </Box>
-            
+
             </Grid>
             <Grid item xs={8}>
-            <Box className={classes.infoText}>
-              <Typography variant="h4" component="h3">
-                How does InboxSieve work?
+              <Box className={classes.infoText}>
+                <Typography variant="h4" component="h3">
+                  How does InboxSieve work?
         </Typography>
-              <Typography component="p">
-                Each person who signs up to InboxSieve receives his own InboxSieve Email Address.
-                Your personal and private email address hides behind your InboxSieve address.
-                This means each message you recive to your InboxSieve address is forwarded to your private one.
-                InboxSieve offers you full controll over who can send you messages or not.
-                On your Dashboard you have the option to disable each individual source from sending you emails.
+                <Typography component="p">
+                  Each person who signs up to InboxSieve receives his own InboxSieve Email Address.
+                  Your personal and private email address hides behind your InboxSieve address.
+                  This means each message you recive to your InboxSieve address is forwarded to your private one.
+                  InboxSieve offers you full controll over who can send you messages or not.
+                  On your Dashboard you have the option to disable each individual source from sending you emails.
         </Typography>
               </Box>
             </Grid>
             <Grid item xs={4}>
-            <Box className={classes.chooosing}></Box>
+              <Box className={classes.chooosing}></Box>
             </Grid>
           </Grid>
         </Paper>
@@ -251,7 +240,7 @@ const LandingPage = function () {
 
           </Grid>
           <Copyright />
-          
+
         </Container>
       </footer>
 
@@ -262,4 +251,4 @@ const LandingPage = function () {
 const condition = authUser => !authUser;
 
 
-export default withoutAuthorization(condition)(LandingPage);
+export default withRouter(withoutAuthorization(condition)(LandingPage));

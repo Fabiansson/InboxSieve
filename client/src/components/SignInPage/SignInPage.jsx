@@ -2,82 +2,157 @@ import React, { Component } from 'react';
 import { withRouter } from 'react-router-dom';
 import { compose } from 'recompose';
 import { SignUpLink } from '../SignUpPage/SignUpPage';
+import Copyright from '../Copyright/Copyright';
 import { PasswordForgetLink } from '../PasswordForgetForm/PasswordForgetForm';
 import { withFirebase } from '../../services/Firebase';
 
 import Container from '@material-ui/core/Container';
+import Avatar from '@material-ui/core/Avatar';
+import Box from '@material-ui/core/Box';
+import Typography from '@material-ui/core/Typography';
+import Grid from '@material-ui/core/Grid';
+import Button from '@material-ui/core/Button';
+import TextField from '@material-ui/core/TextField';
+import FormControlLabel from '@material-ui/core/FormControlLabel';
+import Checkbox from '@material-ui/core/Checkbox';
+import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import CssBaseline from '@material-ui/core/CssBaseline';
+import { makeStyles, withStyles } from '@material-ui/core/styles';
 
-const SignInPage = () => (
+const useStyles = makeStyles(theme => ({
+  paper: {
+    marginTop: theme.spacing(8),
+    padding: theme.spacing(3),
+    boxShadow: theme.shadows[10],
+    borderRadius: '10px',
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+    backgroundColor: theme.palette.background.paper
+  },
+  avatar: {
+    margin: theme.spacing(1),
+    backgroundColor: theme.palette.primary.main,
+  }
+}));
+
+const SignInPage = function() {
+  const classes = useStyles();
+
+  return(
   <React.Fragment>
-    <CssBaseline />
-    <Container>
-  <div>
-    <h1>SignIn</h1>
+    <Container component="main" maxWidth="xs">
+      <CssBaseline />
+      <div className={classes.paper}>
+        <Avatar className={classes.avatar}>
+          <LockOutlinedIcon />
+        </Avatar>
+        <Typography component="h1" variant="h5">
+          Sign in
+        </Typography>
     <SignInForm />
-    <PasswordForgetLink />
-    <SignUpLink />
-  </div>
-  </Container>
+    </div>
+      <Box mt={8}>
+        <Copyright />
+      </Box>
+    </Container>
+  
   </React.Fragment>
 
-);
+)};
 
-const INITIAL_STATE = {
-  email: '',
-  password: '',
-  error: null,
-};
+const styles = theme => ({
+  '@global': {
+    body: {
+      backgroundColor: theme.palette.common.white,
+    },
+  },
+  form: {
+    width: '100%', // Fix IE 11 issue.
+    marginTop: theme.spacing(1),
+  },
+  submit: {
+    margin: theme.spacing(3, 0, 2),
+  },
+});
 
 class SignInFormBase extends Component {
   constructor(props) {
     super(props);
-    this.state = { ...INITIAL_STATE };
+    this.state = { error: null };
   }
 
   onSubmit = event => {
-    const { email, password } = this.state;
+    const email = event.target.email.value;
+    const password = event.target.password.value;
+    //const { email, password } = this.state;
+    if(email && password) {
     this.props.firebase
       .doSignInWithEmailAndPassword(email, password)
       .then(() => {
-        this.setState({ ...INITIAL_STATE });
+        this.setState({ error: null });
         this.props.history.push('/dashboard');
       })
       .catch(error => {
         this.setState({ error });
       });
+    }
     event.preventDefault();
   };
 
-  onChange = event => {
-    this.setState({ [event.target.name]: event.target.value });
-  };
-
   render() {
-    const { email, password, error } = this.state;
-    const isInvalid = password === '' || email === '';
+    const { classes } = this.props;
+    const { error } = this.state;
 
     return (
-      <form onSubmit={this.onSubmit}>
-        <input
-          name="email"
-          value={email}
-          onChange={this.onChange}
-          type="text"
-          placeholder="Email Address"
-        />
-        <input
-          name="password"
-          value={password}
-          onChange={this.onChange}
-          type="password"
-          placeholder="Password"
-        />
-        <button disabled={isInvalid} type="submit">
-          Sign In
-        </button>
+      <React.Fragment>
+      <form className={classes.form} onSubmit={this.onSubmit}>
+          <TextField
+            variant="outlined"
+            margin="normal"
+            required
+            fullWidth
+            id="email"
+            label="Private Email Address"
+            name="email"
+            autoComplete="email"
+            autoFocus
+          />
+          <TextField
+            variant="outlined"
+            margin="normal"
+            required
+            fullWidth
+            name="password"
+            label="Password"
+            type="password"
+            id="password"
+            autoComplete="current-password"
+          />
+          <FormControlLabel
+            control={<Checkbox value="remember" color="primary" />}
+            label="Remember me"
+          />
+          <Button
+            type="submit"
+            fullWidth
+            variant="contained"
+            color="primary"
+            className={classes.submit}
+          >
+            Sign In
+          </Button>
+          <Grid container>
+            <Grid item xs>
+            <PasswordForgetLink />
+            </Grid>
+            <Grid item>
+            <SignUpLink />
+            </Grid>
+          </Grid>
+        </form>
         {error && <p>{error.message}</p>}
-      </form>
+    </React.Fragment>
     );
   }
 }
@@ -85,7 +160,7 @@ class SignInFormBase extends Component {
 const SignInForm = compose(
   withRouter,
   withFirebase,
-)(SignInFormBase);
+)(withStyles(styles)(SignInFormBase));
 
 export default SignInPage;
 
