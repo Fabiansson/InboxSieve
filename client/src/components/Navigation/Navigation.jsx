@@ -88,7 +88,7 @@ return(
 <AppBar position="static" color="primary" elevation={0} className={classes.appBar}>
 <Toolbar className={classes.toolbar}>
   <Linkk variant="h4" color="primary" href="/" noWrap className={classes.toolbarTitle}>
-      InboxSievee
+      InboxSieve
     </Linkk>
   <nav>
     <Linkk variant="button" color="textPrimary" href="#" className={classes.link}>

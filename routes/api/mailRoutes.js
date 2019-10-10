@@ -22,14 +22,6 @@ router.get('/:uid', (req, res) => {
 // @desc    Update A MailRoute
 // @access  private
 router.put('/:id', (req, res) => {
-    console.log(req.params.id);
-    //TODO: Activate/Deactivate in DB
-    /*MailRoute.findById(req.params.id)
-        .then(user => user.remove().then(() => res.json({success: true})))
-        .catch(err => res.status(404).json({success: false}));*/
-    
-    //Stop/Activate on Mailgun
-
     if(req.body.activate){
         console.log('activating route');
         MailRoute.findOne({ _id: req.params.id })
@@ -57,22 +49,17 @@ router.put('/:id', (req, res) => {
                 })
         });
     }
-    
-    //TODO: Activate on Mailgun
 });
 
 // @route   DELETE api/mailRoutes/:id
 // @desc    Deleta A Route
 // @access  private
 router.delete('/:id',(req, res) => {
-    //TODO: Delete in DB
-    /*MailRoute.findById(req.params.id)
-        .then(user => user.remove().then(() => res.json({success: true})))
-        .catch(err => res.status(404).json({success: false}));*/
-    
-    //Delete on Mailgun
     mailgun.delete('/routes/' + req.params.id, function (error, body) {
-        res.json(body);
+        if(error) return res.status(400).json({ msg: 'Deleting Route went wrong' });
+        MailRoute.findOneAndDelete({ _id: req.params.id })
+            .then(route => res.json(body))
+            .catch(err => res.status(400).json({ msg: 'Deleting Route in DB went wrong' }))
     });
 
 });

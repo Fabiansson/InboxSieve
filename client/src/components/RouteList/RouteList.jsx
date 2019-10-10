@@ -10,6 +10,8 @@ import Switch from '@material-ui/core/Switch';
 import EmailIcon from '@material-ui/icons/Email';
 import Divider from '@material-ui/core/Divider';
 import Box from '@material-ui/core/Box';
+import IconButton from '@material-ui/core/IconButton';
+import DeleteIcon from '@material-ui/icons/Delete';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -33,7 +35,7 @@ export default function RouteList(props) {
     <Box className={classes.boox}>
     <List subheader={<ListSubheader>My Routes</ListSubheader>} className={classes.root}>
         {props.routes.map((item,i) => 
-        <React.Fragment>
+        <React.Fragment key={i}>
       <ListItem>
         <ListItemIcon>
           <EmailIcon />
@@ -48,6 +50,9 @@ export default function RouteList(props) {
             color={'secondary'}
             inputProps={{ 'aria-labelledby': 'switch-list-label-wifi' }}
           />
+          <IconButton edge="end" aria-label="delete" onClick={() => props.deleteRoute(item._id)}>
+                      <DeleteIcon />
+                    </IconButton>
         </ListItemSecondaryAction>
       </ListItem>
       <Divider />

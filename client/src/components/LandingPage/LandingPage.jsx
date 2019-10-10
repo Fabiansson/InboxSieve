@@ -5,7 +5,6 @@ import { makeStyles } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
 import Fab from '@material-ui/core/Fab';
-import Copyright from '../Copyright/Copyright';
 import PricingTable from '../PricingTable/PricingTable';
 import InputAdornment from '@material-ui/core/InputAdornment';
 import TextField from '@material-ui/core/TextField';
@@ -16,6 +15,7 @@ import { withoutAuthorization } from '../../services/Session';
 import imgChooser from '../../assets/images/undraw_Choose_bwbs.png';
 import imgChoooser from '../../assets/images/undraw_inbox_cleanup_w2ur.png';
 import cleaning from '../../assets/images/inboxCleaning.svg';
+import Footer from '../Footer/Footer';
 
 
 const useStyles = makeStyles(theme => ({
@@ -76,17 +76,6 @@ const useStyles = makeStyles(theme => ({
     marginTop: 'auto',
     backgroundColor: 'white',
   },*/
-  footer: {
-    backgroundColor: 'white',
-    borderTop: `1px solid ${theme.palette.divider}`,
-    marginTop: theme.spacing(5),
-    paddingTop: theme.spacing(3),
-    paddingBottom: theme.spacing(3),
-    [theme.breakpoints.up('sm')]: {
-      paddingTop: theme.spacing(6),
-      paddingBottom: theme.spacing(6),
-    },
-  }
 }));
 
 const signUp = function (history, username) {
@@ -99,7 +88,7 @@ const LandingPage = function (props) {
 
   return (
     <React.Fragment>
-      <Container className={classes.container}>
+      <Container>
         <Box boxShadow={3} className={classes.boox}>
           <Grid container spacing={3}>
             <Grid item xs={6} elevation={6}>
@@ -234,28 +223,7 @@ const LandingPage = function (props) {
 
       <PricingTable />
 
-      <footer className={classes.footer}>
-        <Container maxWidth="sm">
-          <Grid container spacing={3}>
-            <Grid item xs={3}>
-              Terms
-            </Grid>
-            <Grid item xs={3}>
-              Privacy
-            </Grid>
-            <Grid item xs={3}>
-              FAQ
-            </Grid>
-            <Grid item xs={3}>
-              Support
-            </Grid>
-
-          </Grid>
-          <Copyright />
-
-        </Container>
-      </footer>
-
+      <Footer />
     </React.Fragment>
   )
 };
