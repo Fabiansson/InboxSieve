@@ -20,6 +20,7 @@ import Copyright from '../Copyright/Copyright';
 import axios from 'axios';
 
 import { withFirebase } from '../../services/Firebase';
+import { InputAdornment } from '@material-ui/core';
 
 const useStyles = makeStyles(theme => ({
   paper: {
@@ -152,7 +153,7 @@ class SignUpFormBase extends Component {
                 required
                 fullWidth
                 id="email"
-                label="Email Address"
+                label="Private Email Address"
                 name="email"
                 value={email}
                 onChange={this.onChange}
@@ -195,6 +196,9 @@ class SignUpFormBase extends Component {
                 value={isMail}
                 id="isMail"
                 onChange={this.onChange}
+                InputProps={{
+                  endAdornment: <InputAdornment position="end">@inboxsieve.com</InputAdornment>
+                }}
               />
             </Grid>
             <Grid item xs={12}>

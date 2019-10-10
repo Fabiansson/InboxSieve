@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { withRouter } from 'react-router-dom';
 import { Container, Typography, Box } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
@@ -7,6 +7,8 @@ import Grid from '@material-ui/core/Grid';
 import Fab from '@material-ui/core/Fab';
 import Copyright from '../Copyright/Copyright';
 import PricingTable from '../PricingTable/PricingTable';
+import InputAdornment from '@material-ui/core/InputAdornment';
+import TextField from '@material-ui/core/TextField';
 
 import { withoutAuthorization } from '../../services/Session';
 
@@ -14,8 +16,6 @@ import { withoutAuthorization } from '../../services/Session';
 import imgChooser from '../../assets/images/undraw_Choose_bwbs.png';
 import imgChoooser from '../../assets/images/undraw_inbox_cleanup_w2ur.png';
 import cleaning from '../../assets/images/inboxCleaning.svg';
-import IsMailField from '../IsMailField/IsMailField';
-
 
 
 const useStyles = makeStyles(theme => ({
@@ -95,6 +95,7 @@ const signUp = function (history, username) {
 
 const LandingPage = function (props) {
   const classes = useStyles();
+  const [username, setUsername] = useState('');
 
   return (
     <React.Fragment>
@@ -108,8 +109,19 @@ const LandingPage = function (props) {
               <Typography component="h2" variant="h6" className={classes.margin}>
                 Sieves your spam away...
           </Typography>
-              <IsMailField />
-              <Fab variant="extended" onClick={() => signUp(props.history, 'username')} color="primary" aria-label="add" className={classes.margin}>
+              <TextField
+                className={classes.margin}
+                variant="outlined"
+                name="isMail"
+                label="Username"
+                id="isMail"
+                value={username}
+                onChange={(event) => setUsername(event.target.value)}
+                InputProps={{
+                  endAdornment: <InputAdornment position="end">@inboxsieve.com</InputAdornment>
+                }}
+              />
+              <Fab variant="extended" onClick={() => signUp(props.history, username)} color="primary" aria-label="add" className={classes.margin}>
                 Get Started
               </Fab>
               {/*<Box className={classes.formBox}>
