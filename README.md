@@ -38,6 +38,15 @@ git push dokku main:master
 ```
 > Dokku will then run the specified postbuild-script in the `package.json`.
 
+### Following ENV variables need to be set
+```
+GOOGLE_APPLICATION_CREDENTIALS
+MAILGUN_API_KEY
+MAILGUN_DOMAIN
+MAILGUN_HOST
+MONGO_URI
+```
+
 ## Preview
 
 <p float="left">
