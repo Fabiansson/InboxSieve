@@ -40,8 +40,8 @@ git push dokku main:master
 ## Preview
 
 <p float="left">
-  <img src="https://i.postimg.cc/MpLKQG57/Screenshot-2021-01-27-Inbox-Sieve.png" width="400" />
   <img src="https://i.postimg.cc/HknknMwW/Screenshot-2021-01-27-Inbox-Sieve-2.png" width="400" /> 
+  <img src="https://i.postimg.cc/MpLKQG57/Screenshot-2021-01-27-Inbox-Sieve.png" width="400" />
 </p>
 
 ## License
